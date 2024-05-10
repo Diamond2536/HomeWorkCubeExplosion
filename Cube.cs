@@ -2,5 +2,12 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    public float SplitChance { get; set; } = 1f;
+    private float _splitChance = 1f;
+
+    public float SplitChance
+    {
+        get { return _splitChance; }
+        set { _splitChance = value; }
+    }
 }
+

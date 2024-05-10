@@ -5,8 +5,8 @@ public class Exploder : MonoBehaviour
     [SerializeField] private Cube _cubeTemplate;
     [SerializeField] private CubeSpawner _cubeSpawner;
 
-    [SerializeField] private int _minCubeNum = 2;
-    [SerializeField] private int _maxCubeNum = 7;
+    [SerializeField] private int _minCubeNumber = 2;
+    [SerializeField] private int _maxCubeNumber = 7;
 
     [SerializeField] private float _radius;
     [SerializeField] private float _explosionForce;
@@ -22,13 +22,13 @@ public class Exploder : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Cube hitCube = hit.collider.GetComponent<Cube>();
+                Cube hitCube;
 
-                if (hitCube != null)
+                if (hit.collider.TryGetComponent(out hitCube))
                 {
                     if (Random.value < hitCube.SplitChance)
                     {
-                        _cubeSpawner.SpawnNewCubes(_minCubeNum, _maxCubeNum, hitCube.transform.position);
+                        _cubeSpawner.SpawnNewCubes(_minCubeNumber, _maxCubeNumber, hitCube.transform.position);
                         hitCube.SplitChance *= _splitFactor;
                     }
 
@@ -47,7 +47,7 @@ public class Exploder : MonoBehaviour
         {
             Rigidbody cubeRigidBody = colliders[i].GetComponent<Rigidbody>();
 
-            if (cubeRigidBody != null)
+            if (cubeRigidBody != null ) 
             {
                 cubeRigidBody.AddExplosionForce(_explosionForce, center, _radius);
             }
