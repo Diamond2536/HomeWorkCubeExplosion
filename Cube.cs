@@ -2,15 +2,25 @@ using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CubeColorChanger))]
 
 public class Cube : MonoBehaviour
 {
-    private float _splitChance = 1f;
+    private CubeColorChanger _colorChanger;
 
-    public float SplitChance
+    private void Awake()
     {
-        get { return _splitChance; }
-        set { _splitChance = value; }
+        _colorChanger = GetComponent<CubeColorChanger>();
+    }
+
+    private void Start()
+    {
+        ChangeRandomColor();
+    }
+
+    private void ChangeRandomColor()
+    {
+        Color randomColor = Random.ColorHSV();
+        _colorChanger.ChangeColor(randomColor);
     }
 }
-
